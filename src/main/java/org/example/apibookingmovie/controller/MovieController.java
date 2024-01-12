@@ -50,11 +50,21 @@ public class MovieController {
         return movieService.getUpcomingMovies();
     }
 
+    // Thêm các endpoint mới để lấy các phim nổi bật
+    @GetMapping("/popular")
+    public List<Movie> getPopularMovies() {
+        return movieService.getPopularMovies();
+    }
+
     // Thêm endpoint để lấy đường link từ trường movie_trailer
     @GetMapping("/{id}/trailer")
     public String getMovieTrailerLink(@PathVariable Long id) {
         return movieService.getMovieTrailerLink(id);
     }
 
+    @GetMapping("/search")
+    public List<Movie> searchMoviesByName(@RequestParam String keyword) {
+        return movieService.searchMoviesByName(keyword);
+    }
 
 }

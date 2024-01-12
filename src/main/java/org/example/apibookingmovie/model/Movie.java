@@ -30,5 +30,6 @@ public class Movie {
     private String movieLength;
     private String movieFormat;
     private String moviePoster;
+    private int popularityScore;
 
 }

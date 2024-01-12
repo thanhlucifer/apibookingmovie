@@ -7,12 +7,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -20,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public Optional<User> getUserById(@PathVariable Integer id) {
         return userService.getUserById(id);
     }
 
@@ -30,12 +37,23 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+    public User updateUser(@PathVariable Integer id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
+    }
+
+    @PostMapping("/login")
+    public User login(@RequestParam("username") String username, @RequestParam("password") String password) {
+        // Gọi phương thức login trong UserService và trả về kết quả
+        return userService.login(username, password);
+    }
+
+    @PostMapping("/register")
+    public User register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email) {
+        return userService.register(username, password, email);
     }
 }

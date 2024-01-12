@@ -1,10 +1,7 @@
 package org.example.apibookingmovie.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +19,21 @@ public class Seat {
     private Long seatId;
 
     private String seatType;
-    private Long roomId;
+
+
+    @ManyToOne
+    @JoinColumn(name = "roomId", nullable = false)
+    private Room room;
+
+
     private String seatRow;
     private int seatNumber;
+
+    // Trường đại diện cho trạng thái đặt (đã đặt hay chưa)
+    @Column(columnDefinition = "BIT")
+    private boolean booked;
+
+    private double seatPrice;
+
+
 }

@@ -14,7 +14,13 @@ public class ScheduleService {
     private ScheduleRepository scheduleRepository;
 
     public List<Schedule> getAllSchedules() {
-        return scheduleRepository.findAll();
+        List<Schedule> schedules = scheduleRepository.findAll();
+        // Lặp qua danh sách và có thể sử dụng getCinemaName để lấy tên của Cinema từ mỗi đối tượng Schedule.
+        for (Schedule schedule : schedules) {
+            String cinemaName = schedule.getCinemaName();
+            // Do something with cinemaName if needed.
+        }
+        return schedules;
     }
 
     public Schedule getScheduleById(Long id) {
@@ -35,5 +41,9 @@ public class ScheduleService {
 
     public void deleteSchedule(Long id) {
         scheduleRepository.deleteById(id);
+    }
+
+    public List<Schedule> getSchedulesByMovieId(Long movieId) {
+        return scheduleRepository.findByMovieMovieId(movieId);
     }
 }

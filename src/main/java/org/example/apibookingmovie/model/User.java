@@ -1,9 +1,6 @@
 package org.example.apibookingmovie.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,25 +8,23 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
+import jakarta.persistence.*;
+import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@Data
+@Entity
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-
+    private Integer user_id;
+    @Column
     private String username;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column
     private String password;
-    private String userAvatar;
-    private String userFullname;
-    private Date userBirthday;
-    private String userGender;
-    private String userEmail;
-    private String userPhone;
-    private String userCity;
 
 }

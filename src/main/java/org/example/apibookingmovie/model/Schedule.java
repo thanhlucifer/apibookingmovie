@@ -1,14 +1,14 @@
 package org.example.apibookingmovie.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,10 +22,28 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scheduleId;
 
-    private Long movieId;
-    private Long roomId;
-    private LocalDateTime scheduleDate;
-    private LocalDateTime scheduleStart;
-    private LocalDateTime scheduleEnd;
+
+    @ManyToOne
+    @JoinColumn(name = "movieId", nullable = false)
+    private Movie movie;
+
+    @ManyToOne
+    @JoinColumn(name = "roomId", nullable = false)
+    private Room room;
+    private LocalDate scheduleDate;
+    private Time scheduleStart;
+    private Time scheduleEnd;
+
+    @Transient
+    private String cinemaName; // Tạm thời để lưu trữ tên của cinema
+
+
+    public String getCinemaName() {
+        if (room != null && room.getCinema() != null) {
+            return room.getCinema().getCinemaName();
+        }
+        return null;
+    }
+
 
 }

@@ -1,9 +1,6 @@
 package org.example.apibookingmovie.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +17,21 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
 
-    private Long userId;
-    private Long scheduleId;
-    private Long seatId;
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "scheduleId", nullable = false)
+    private Schedule schedule;
+
+    @ManyToOne
+    @JoinColumn(name = "seatId", nullable = false)
+    private Seat seat;
+
     private double price;
     private String seatStatus;
+
+
 
 }

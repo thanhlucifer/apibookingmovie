@@ -38,4 +38,15 @@ public class SeatController {
     public void deleteSeat(@PathVariable Long id) {
         seatService.deleteSeat(id);
     }
+
+
+    @GetMapping("/byRoom/{roomId}")
+    public List<Seat> getSeatsByRoomId(@PathVariable Long roomId) {
+        return seatService.getSeatsByRoomId(roomId);
+    }
+
+    @PostMapping("/book/{seatId}")
+    public Seat bookSeat(@PathVariable Long seatId) {
+        return seatService.bookSeat(seatId);
+    }
 }

@@ -55,6 +55,13 @@ public class MovieService {
                 .collect(Collectors.toList());
     }
 
+    // Thêm phương thức để lấy ra các phim nổi bật dựa vào popularityScore
+    public List<Movie> getPopularMovies() {
+        return movieRepository.findAll().stream()
+                .filter(movie -> movie.getPopularityScore() > 8)
+                .collect(Collectors.toList());
+    }
+
     // Thêm phương thức mới để lấy đường link từ trường movie_trailer
     public String getMovieTrailerLink(Long id) {
         Movie movie = movieRepository.findById(id).orElse(null);
@@ -62,5 +69,12 @@ public class MovieService {
             return movie.getMovieTrailer();
         }
         return null;
+    }
+
+    public List<Movie> searchMoviesByName(String keyword) {
+        // Sử dụng Stream để lọc danh sách phim theo tên
+        return movieRepository.findAll().stream()
+                .filter(movie -> movie.getMovieName() != null && movie.getMovieName().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }
